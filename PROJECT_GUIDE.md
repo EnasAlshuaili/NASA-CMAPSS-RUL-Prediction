@@ -126,25 +126,7 @@ C-MAPSS contains measurements representing different engine operating/health qua
 
 ## 6. Project Structure
 
-```text
-NASA-CMAPSS-RUL-Prediction/
-│
-├── data/
-│   ├── CMAPSSData.zip
-│   └── raw/
-│       ├── train_FD001.txt
-│       ├── test_FD001.txt
-│       └── RUL_FD001.txt
-│
-├── models/
-├── notebooks/
-│   └── 01_EDA_FD001.ipynb
-├── results/
-└── src/
-    └── data_loader.py
-```
-
-Responsibilities:
+The full, current tree is in the README. Responsibilities:
 
 - `data/`: datasets.
 - `data/raw/`: original raw files. Do not overwrite them.
@@ -152,41 +134,19 @@ Responsibilities:
 - `src/`: reusable Python code.
 - `models/`: trained models and model artifacts.
 - `results/`: plots, metrics, tables, and experiment outputs.
+- `tests/`: automated tests.
 
 ---
 
 ## 7. Python Environment
 
-Use the dedicated Conda environment:
+The project targets Python 3.12 in a project-local virtual environment (`.venv`).
 
-```text
-cmapss
-```
+- `requirements.txt`: pinned runtime dependencies for the app, `src/` scripts, and tests.
+- `requirements-notebooks.txt`: additional packages for the notebooks.
 
-Python:
-
-```text
-Python 3.12.14
-```
-
-Python executable:
-
-```text
-/home/eys20/miniconda3/envs/cmapss/bin/python
-```
-
-Installed core libraries include:
-
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- scikit-learn
-- scipy
-- jupyter
-- ipykernel
-
-Prefer the `cmapss` environment when running project code.
+Versions are pinned because the saved `.pkl` models must be loaded with the same
+scikit-learn / XGBoost versions that created them. Setup steps are in the README.
 
 ---
 
@@ -514,88 +474,60 @@ Prediction / Deployment
 
 ---
 
-## 20. Project Phases
+## 20. Development Stages
 
-### Phase 1 — Data Setup
+These are the development stages of the original plan. (The "Phase 2" and "Phase 2.5"
+experiments described in the README came after these stages and are separate from them.)
 
-Completed:
+### Stage 1 — Data Setup
 
-- Conda environment created.
-- Python configured.
-- Required data-science packages installed.
-- C-MAPSS archive located.
-- FD001 files extracted.
-- Training data verified.
+Completed: Python environment, C-MAPSS archive, FD001 extraction, training data verified.
 
-Status:
+### Stage 2 — EDA
 
-```text
-COMPLETED
-```
+Completed: data-quality checks, engine lifetime analysis, sensor and operating-setting
+analysis, correlation analysis, degradation visualization, initial RUL analysis.
 
-### Phase 2 — EDA
+### Stage 3 — Data Preparation
 
 Completed:
 
-- Dataset overview and data-quality checks
-- Engine lifetime analysis
-- Sensor and operating-setting analysis
-- Correlation analysis
-- Degradation visualization
-- Initial RUL analysis
-
-Status:
-
-```text
-COMPLETED
-```
-
-### Phase 3 — Data Preparation
-
-In progress:
-
-- Robust loading and validation for training, test, and official RUL-label files
+- Robust loading and validation for training, test, and official RUL-label files (`src/data_loader.py`)
 - Reusable training RUL construction that does not alter raw data
-- Sensor selection
-- Feature engineering
-- Model-ready datasets
+- Sensor selection: the 6 constant sensors were removed, leaving 15 sensors
+- Engine-level train/validation split (`GroupShuffleSplit` by `engine_id`, 80 / 20 engines)
 
-### Phase 4 — Modeling
+### Stage 4 — Modeling
 
-Future:
+Completed (`notebooks/02_EDA_FD001_cleaned.ipynb`):
 
-- Baseline models
-- Multiple regression models
-- Validation
-- Hyperparameter tuning
-- Error analysis
+- Linear Regression baseline, Random Forest, and XGBoost compared on the same engine-level split
+- XGBoost tuned with `RandomizedSearchCV` and 3-fold `GroupKFold` on the training engines
+- Final model exported with metadata and a SHA-256 fingerprint (`models/model_metadata.json`)
 
-### Phase 5 — Interpretation
+### Stage 5 — Evaluation and Interpretation
 
-Future:
+Completed:
 
-- Feature importance
-- Sensor contribution
-- Actual vs predicted RUL
-- Error analysis
+- Validation metrics and error by RUL band
+- Feature importance and actual-vs-predicted analysis
+- One-time evaluation on the official NASA FD001 test set (`src/evaluate_official_test.py`)
 
-### Phase 6 — Deployment
+### Stage 6 — Deployment
 
-Potential future flow:
+Completed: a two-page Streamlit app (`app.py`) that serves the verified V1 model:
 
 ```text
 Sensor Input
      ↓
-Preprocessing
+Input Validation
      ↓
-Trained RUL Model
+Trained RUL Model (V1)
      ↓
 Predicted Remaining Useful Life
      ↓
 Health / Maintenance Information
 ```
-
-A Streamlit dashboard could later demonstrate the final system.
 
 ---
 
@@ -643,40 +575,18 @@ The project should demonstrate understanding of:
 
 ---
 
-## 22. Instructions for Codex
+## 22. Working Principles
 
-This document is project context.
+Rules followed throughout development:
 
-Before making major changes, Codex should inspect:
-
-```text
-PROJECT_GUIDE.md
-```
-
-and the current project files.
-
-Codex should:
-
-- Understand the existing project structure.
-- Reuse existing code where appropriate.
-- Avoid unnecessary duplication.
-- Keep raw data unchanged.
-- Validate results after changes.
-- Explain important changes.
-- Keep notebooks reproducible.
-- Prefer clean and modular code.
-
-Codex should NOT:
-
-- Delete raw datasets.
-- Modify raw C-MAPSS files.
-- Invent sensor meanings.
-- Claim a model is good without evaluation.
-- Randomly split rows when this causes leakage.
-- Train using test labels.
-- Use future information to predict current RUL.
-- Commit or push to Git unless explicitly requested.
-- Install packages unnecessarily when the `cmapss` environment already contains them.
+- Reuse existing code and avoid unnecessary duplication.
+- Keep raw data unchanged; never modify the raw C-MAPSS files.
+- Validate results after every change and keep notebooks reproducible.
+- Do not invent sensor meanings.
+- Do not claim a model is good without evaluation.
+- Do not randomly split rows when this causes leakage; split by engine.
+- Never train or tune using test labels.
+- Never use future information to predict current RUL.
 
 ---
 
@@ -714,19 +624,20 @@ Continue with the strongest validated candidate and perform error analysis.
 ## 24. Current Status
 
 ```text
-Environment        ✅
+Environment         ✅
 Dataset             ✅
-FD001 extraction    ✅
 Data loading        ✅
-Initial validation  ✅
 EDA                 ✅
 RUL construction    ✅
-Feature engineering ⏳
-Modeling            ⏳
-Evaluation          ⏳
-Interpretability    ⏳
-Deployment          ⏳
+Feature selection   ✅
+Modeling            ✅
+Evaluation          ✅
+Interpretability    ✅
+Deployment          ✅
 ```
+
+The V1 XGBoost model is the production model. Later experiments (Phase 2 and
+Phase 2.5) are documented in the README and did not replace V1.
 
 ---
 
@@ -751,15 +662,8 @@ Duplicate rows: 0
 Missing values: none detected
 ```
 
-Future claims about:
-
-- Best sensors
-- Strongest degradation patterns
-- Best features
-- Best model
-- Final error
-- Deployment performance
-
-must come from actual analysis and experiments.
+Claims about the best sensors, features, model, final error, and deployment
+performance come from the analysis and experiments recorded in the notebooks,
+`models/model_metadata.json`, and `results/`.
 
 Never present an assumption as an experimental result.

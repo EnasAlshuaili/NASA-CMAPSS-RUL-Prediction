@@ -1,0 +1,9 @@
+# Runtime dependencies for the Streamlit app, src/ scripts and tests (Python 3.12).
+# Versions are pinned to the environment that produced models/*.pkl: pickled
+# scikit-learn / XGBoost models are only guaranteed to load with these versions.
+joblib==1.6.0
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+streamlit==1.65.0
+xgboost==3.4.1

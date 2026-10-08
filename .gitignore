@@ -1,9 +1,36 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
 
-# Virtual environment
+# Virtual environments
 .venv/
+venv/
+env/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Local environment files and secrets
+.env
+.env.*
+*.env
+.streamlit/secrets.toml
+secrets/
+credentials/
+*.pem
+*.key

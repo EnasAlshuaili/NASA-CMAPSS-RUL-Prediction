@@ -1,0 +1,5 @@
+# Optional: extra packages for running the EDA / training notebooks in notebooks/.
+-r requirements.txt
+jupyter==1.1.1
+matplotlib==3.11.2
+seaborn==0.13.2

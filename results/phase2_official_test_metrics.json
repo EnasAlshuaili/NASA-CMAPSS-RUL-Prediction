@@ -1,0 +1,232 @@
+{
+  "protocol": "Same as src/evaluate_official_test.py: RUL_FD001 label at each test engine's last cycle; all-rows view uses label + (last cycle - cycle). Used only after model selection.",
+  "v1": {
+    "official_last_cycle": {
+      "metrics": {
+        "n": 100,
+        "MAE": 23.0814,
+        "RMSE": 31.4737,
+        "R2": 0.4264,
+        "median_absolute_error": 16.835,
+        "min_absolute_error": 0.0535,
+        "max_absolute_error": 82.2543,
+        "mean_error_bias": 19.3512
+      },
+      "error_by_true_rul": [
+        {
+          "band": "<=25",
+          "n": 19,
+          "MAE": 9.4765,
+          "RMSE": 15.8219,
+          "mean_error_bias": 8.5137
+        },
+        {
+          "band": "25-50",
+          "n": 14,
+          "MAE": 12.0421,
+          "RMSE": 17.9488,
+          "mean_error_bias": 10.7785
+        },
+        {
+          "band": "50-100",
+          "n": 34,
+          "MAE": 31.1566,
+          "RMSE": 39.5178,
+          "mean_error_bias": 25.5468
+        },
+        {
+          "band": "100-150",
+          "n": 33,
+          "MAE": 27.2781,
+          "RMSE": 33.3469,
+          "mean_error_bias": 22.8445
+        },
+        {
+          "band": "150-200",
+          "n": 0,
+          "MAE": null,
+          "RMSE": null,
+          "mean_error_bias": null
+        },
+        {
+          "band": ">200",
+          "n": 0,
+          "MAE": null,
+          "RMSE": null,
+          "mean_error_bias": null
+        }
+      ]
+    },
+    "all_test_rows": {
+      "metrics": {
+        "n": 13096,
+        "MAE": 34.3395,
+        "RMSE": 45.7408,
+        "R2": 0.3985,
+        "median_absolute_error": 26.3766,
+        "min_absolute_error": 0.0003,
+        "max_absolute_error": 208.3459,
+        "mean_error_bias": -2.7851
+      },
+      "error_by_true_rul": [
+        {
+          "band": "<=25",
+          "n": 218,
+          "MAE": 10.7465,
+          "RMSE": 17.6873,
+          "mean_error_bias": 9.6628
+        },
+        {
+          "band": "25-50",
+          "n": 668,
+          "MAE": 28.2504,
+          "RMSE": 41.0259,
+          "mean_error_bias": 26.23
+        },
+        {
+          "band": "50-100",
+          "n": 2308,
+          "MAE": 38.4864,
+          "RMSE": 46.5522,
+          "mean_error_bias": 35.3468
+        },
+        {
+          "band": "100-150",
+          "n": 4313,
+          "MAE": 24.7001,
+          "RMSE": 30.3738,
+          "mean_error_bias": 17.0929
+        },
+        {
+          "band": "150-200",
+          "n": 3630,
+          "MAE": 22.7098,
+          "RMSE": 28.843,
+          "mean_error_bias": -16.732
+        },
+        {
+          "band": ">200",
+          "n": 1959,
+          "MAE": 76.9274,
+          "RMSE": 85.1584,
+          "mean_error_bias": -76.9101
+        }
+      ]
+    }
+  },
+  "phase2_candidate": {
+    "name": "Best Combined Model",
+    "official_last_cycle": {
+      "metrics": {
+        "n": 100,
+        "MAE": 22.9891,
+        "RMSE": 30.8501,
+        "R2": 0.4489,
+        "median_absolute_error": 15.6653,
+        "min_absolute_error": 0.2547,
+        "max_absolute_error": 89.4056,
+        "mean_error_bias": 19.3755
+      },
+      "error_by_true_rul": [
+        {
+          "band": "<=25",
+          "n": 19,
+          "MAE": 8.9885,
+          "RMSE": 14.6636,
+          "mean_error_bias": 8.6548
+        },
+        {
+          "band": "25-50",
+          "n": 14,
+          "MAE": 14.037,
+          "RMSE": 19.3079,
+          "mean_error_bias": 10.3864
+        },
+        {
+          "band": "50-100",
+          "n": 34,
+          "MAE": 31.7419,
+          "RMSE": 39.4046,
+          "mean_error_bias": 28.0228
+        },
+        {
+          "band": "100-150",
+          "n": 33,
+          "MAE": 25.8301,
+          "RMSE": 31.6589,
+          "mean_error_bias": 20.4523
+        },
+        {
+          "band": "150-200",
+          "n": 0,
+          "MAE": null,
+          "RMSE": null,
+          "mean_error_bias": null
+        },
+        {
+          "band": ">200",
+          "n": 0,
+          "MAE": null,
+          "RMSE": null,
+          "mean_error_bias": null
+        }
+      ]
+    },
+    "all_test_rows": {
+      "metrics": {
+        "n": 13096,
+        "MAE": 33.6136,
+        "RMSE": 44.9973,
+        "R2": 0.4179,
+        "median_absolute_error": 25.4915,
+        "min_absolute_error": 0.0017,
+        "max_absolute_error": 196.375,
+        "mean_error_bias": -2.7402
+      },
+      "error_by_true_rul": [
+        {
+          "band": "<=25",
+          "n": 218,
+          "MAE": 11.3062,
+          "RMSE": 16.9571,
+          "mean_error_bias": 10.8975
+        },
+        {
+          "band": "25-50",
+          "n": 668,
+          "MAE": 27.3502,
+          "RMSE": 41.0833,
+          "mean_error_bias": 26.1769
+        },
+        {
+          "band": "50-100",
+          "n": 2308,
+          "MAE": 37.1765,
+          "RMSE": 45.0912,
+          "mean_error_bias": 34.3404
+        },
+        {
+          "band": "100-150",
+          "n": 4313,
+          "MAE": 23.6407,
+          "RMSE": 29.2154,
+          "mean_error_bias": 16.6556
+        },
+        {
+          "band": "150-200",
+          "n": 3630,
+          "MAE": 22.9153,
+          "RMSE": 28.6408,
+          "mean_error_bias": -16.2041
+        },
+        {
+          "band": ">200",
+          "n": 1959,
+          "MAE": 75.8146,
+          "RMSE": 84.4597,
+          "mean_error_bias": -75.5588
+        }
+      ]
+    }
+  }
+}

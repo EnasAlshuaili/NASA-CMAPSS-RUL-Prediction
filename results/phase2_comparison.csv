@@ -1,0 +1,8 @@
+Model / Experiment,Features,RUL Cap,MAE,RMSE,R2,Bias,CV MAE,CV RMSE,Improves on V1,Notes
+V1 Baseline,15 raw sensors (15),none,25.8786,35.1955,0.7126,1.598,31.6736,44.3805,False,"Saved production model's configuration, refit"
+RUL Cap 125,15 raw sensors (15),125,31.9717,45.9839,0.5094,-19.5441,35.6367,52.6111,False,Training labels capped; validation labels are true RUL
+RUL Cap 100,15 raw sensors (15),100,38.6479,55.6788,0.2807,-30.7361,41.9384,61.4786,False,Training labels capped; validation labels are true RUL
+RUL Cap 75,15 raw sensors (15),75,49.1703,68.962,-0.1034,-44.8453,52.1684,74.1757,False,Training labels capped; validation labels are true RUL
+Rolling Features,15 raw sensors + rolling mean/std (39),none,24.8502,33.8955,0.7334,1.2405,31.3582,43.8989,True,"Trailing mean/std, windows [5, 10], per engine"
+Trend Features,15 raw sensors + trends (33),none,25.6192,34.804,0.719,1.4581,31.3334,43.8939,True,"diff_1, slope_10, change_10, per engine"
+Best Combined Model,15 raw sensors + rolling mean/std + trends (57),none,24.6624,33.6179,0.7378,1.3688,31.0797,43.5838,True,Only components that improved individually
