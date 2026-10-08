@@ -1,0 +1,179 @@
+{
+  "evaluated_at_utc": "2026-10-08T08:02:06+00:00",
+  "model": {
+    "file": "xgboost_rul_model.pkl",
+    "sha256": "489fb29f5721621756d1f19f3b405a0f363b4281655bd4a8009870c1dc1a73d1",
+    "name": "GroupKFold-tuned XGBoost",
+    "hyperparameters": {
+      "subsample": 0.7,
+      "n_estimators": 400,
+      "min_child_weight": 5,
+      "max_depth": 4,
+      "learning_rate": 0.01,
+      "gamma": 0.1,
+      "colsample_bytree": 0.7
+    },
+    "features": [
+      "sensor_2",
+      "sensor_3",
+      "sensor_4",
+      "sensor_6",
+      "sensor_7",
+      "sensor_8",
+      "sensor_9",
+      "sensor_11",
+      "sensor_12",
+      "sensor_13",
+      "sensor_14",
+      "sensor_15",
+      "sensor_17",
+      "sensor_20",
+      "sensor_21"
+    ],
+    "input_scaling": "none (raw sensor values)",
+    "predictions_clipped_at_zero": true
+  },
+  "data": {
+    "test_file": "data/raw/test_FD001.txt",
+    "label_file": "data/raw/RUL_FD001.txt",
+    "test_engines": 100,
+    "test_rows": 13096,
+    "rul_labels": 100,
+    "alignment": "RUL_FD001.txt row i = RUL at the last observed cycle of test engine i (engine ids 1..100, verified)",
+    "observed_cycles_per_engine": {
+      "min": 31,
+      "max": 303
+    },
+    "label_rul_range": {
+      "min": 7,
+      "max": 145
+    },
+    "implied_total_life": {
+      "min": 141,
+      "max": 341
+    },
+    "train_total_life": {
+      "min": 128,
+      "max": 362
+    }
+  },
+  "official_last_cycle": {
+    "description": "Standard FD001 benchmark: one prediction per test engine at its last observed cycle, compared with RUL_FD001.txt.",
+    "metrics": {
+      "n": 100,
+      "MAE": 23.0814,
+      "RMSE": 31.4737,
+      "R2": 0.4264,
+      "median_absolute_error": 16.835,
+      "min_absolute_error": 0.0535,
+      "max_absolute_error": 82.2543,
+      "mean_error_bias": 19.3512
+    },
+    "error_by_true_rul": [
+      {
+        "band": "<=25",
+        "n": 19,
+        "MAE": 9.4765,
+        "RMSE": 15.8219,
+        "mean_error_bias": 8.5137
+      },
+      {
+        "band": "25-50",
+        "n": 14,
+        "MAE": 12.0421,
+        "RMSE": 17.9488,
+        "mean_error_bias": 10.7785
+      },
+      {
+        "band": "50-100",
+        "n": 34,
+        "MAE": 31.1566,
+        "RMSE": 39.5178,
+        "mean_error_bias": 25.5468
+      },
+      {
+        "band": "100-150",
+        "n": 33,
+        "MAE": 27.2781,
+        "RMSE": 33.3469,
+        "mean_error_bias": 22.8445
+      },
+      {
+        "band": "150-200",
+        "n": 0,
+        "MAE": null,
+        "RMSE": null,
+        "mean_error_bias": null
+      },
+      {
+        "band": ">200",
+        "n": 0,
+        "MAE": null,
+        "RMSE": null,
+        "mean_error_bias": null
+      }
+    ]
+  },
+  "all_test_rows": {
+    "description": "Every test row; actual RUL = label + (last observed cycle - cycle). Supplementary.",
+    "metrics": {
+      "n": 13096,
+      "MAE": 34.3395,
+      "RMSE": 45.7408,
+      "R2": 0.3985,
+      "median_absolute_error": 26.3766,
+      "min_absolute_error": 0.0003,
+      "max_absolute_error": 208.3459,
+      "mean_error_bias": -2.7851
+    },
+    "error_by_true_rul": [
+      {
+        "band": "<=25",
+        "n": 218,
+        "MAE": 10.7465,
+        "RMSE": 17.6873,
+        "mean_error_bias": 9.6628
+      },
+      {
+        "band": "25-50",
+        "n": 668,
+        "MAE": 28.2504,
+        "RMSE": 41.0259,
+        "mean_error_bias": 26.23
+      },
+      {
+        "band": "50-100",
+        "n": 2308,
+        "MAE": 38.4864,
+        "RMSE": 46.5522,
+        "mean_error_bias": 35.3468
+      },
+      {
+        "band": "100-150",
+        "n": 4313,
+        "MAE": 24.7001,
+        "RMSE": 30.3738,
+        "mean_error_bias": 17.0929
+      },
+      {
+        "band": "150-200",
+        "n": 3630,
+        "MAE": 22.7098,
+        "RMSE": 28.843,
+        "mean_error_bias": -16.732
+      },
+      {
+        "band": ">200",
+        "n": 1959,
+        "MAE": 76.9274,
+        "RMSE": 85.1584,
+        "mean_error_bias": -76.9101
+      }
+    ]
+  },
+  "validation_reference": {
+    "MAE": 25.8786,
+    "RMSE": 35.1955,
+    "R2": 0.7126
+  }
+}
